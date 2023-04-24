@@ -1,4 +1,4 @@
-package neu.edu.mainapp.dto;
+package neu.edu.yesstyle.dto;
 
 public class UserDTO {
 	private String userid;
@@ -14,22 +14,15 @@ public class UserDTO {
 	private String city;
 	private String province;
 	private String zipcode;
-	private String createdat;
-	private String country;
+	private String company;
 	
 	
 	
-	public String getCountry() {
-		return country;
+	public String getCompany() {
+		return company;
 	}
-	public void setCountry(String country) {
-		this.country = country;
-	}
-	public String getCreatedat() {
-		return createdat;
-	}
-	public void setCreatedat(String createdat) {
-		this.createdat = createdat;
+	public void setCompany(String company) {
+		this.company = company;
 	}
 	public String getRole() {
 		return role;

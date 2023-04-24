@@ -1,4 +1,4 @@
-package neu.edu.sephora;
+package neu.edu.eskincare;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

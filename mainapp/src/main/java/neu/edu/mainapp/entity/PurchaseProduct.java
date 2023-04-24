@@ -24,6 +24,19 @@ public class PurchaseProduct {
 	
 	@Column
 	private String productname;
+	
+	@Column
+	private String category;
+	
+	
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
 
 	public String getPurchaseid() {
 		return purchaseid;

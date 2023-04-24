@@ -54,9 +54,23 @@ public class User {
 	@Column
 	private String zipcode;
 	
+	
+	@Column
+	private String country;
+	
 	@Column
 	private String createdat;
 	
+	
+	
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
 	public String getCreatedat() {
 		return createdat;
 	}

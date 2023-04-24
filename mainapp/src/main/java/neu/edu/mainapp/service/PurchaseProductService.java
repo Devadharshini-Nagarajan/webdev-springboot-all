@@ -35,6 +35,7 @@ public class PurchaseProductService {
 		purchaseproduct.setUsername(purchaseProductDTO.getUsername());
 		purchaseproduct.setProductid(purchaseProductDTO.getProductid());
 		purchaseproduct.setProductname(purchaseProductDTO.getProductname());
+		purchaseproduct.setCategory(purchaseProductDTO.getCategory());
 		
 		PurchaseProduct savedPurchaseProduct = null;
 		

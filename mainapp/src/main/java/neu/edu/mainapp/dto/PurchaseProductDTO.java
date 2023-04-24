@@ -6,8 +6,15 @@ public class PurchaseProductDTO {
 	private String username;
 	private String productid;
 	private String productname;
+	private String category;
 	
 	
+	public String getCategory() {
+		return category;
+	}
+	public void setCategory(String category) {
+		this.category = category;
+	}
 	public String getPurchaseid() {
 		return purchaseid;
 	}
