@@ -34,19 +34,43 @@ public class MainController {
 	private RestTemplate restEurekaTemplate;
 	
 	public ArrayList<Product> getAllProductsFromCompanies() {
-		String url = "http://sephora-server/sephora/getProducts"; 
+		String sephoraurl = "http://sephora-server/sephora/getProducts"; 
 		
 		@SuppressWarnings("unchecked") 
-		ArrayList<Product> postForObject = restEurekaTemplate.getForObject(url, ArrayList.class); 
+		ArrayList<Product> sephorapostForObject = restEurekaTemplate.getForObject(sephoraurl, ArrayList.class); 
 		
-		return postForObject;	
+		String yesstyleurl = "http://yesstyle-server/yesstyle/getProducts"; 
+		
+		@SuppressWarnings("unchecked") 
+		ArrayList<Product> yesstyleurlpostForObject = restEurekaTemplate.getForObject(yesstyleurl, ArrayList.class); 
+		
+		String eskincareurl = "http://eskincare-server/eskincare/getProducts"; 
+		
+		@SuppressWarnings("unchecked") 
+		ArrayList<Product> eskincareurlpostForObject = restEurekaTemplate.getForObject(eskincareurl, ArrayList.class); 
+		
+		
+		ArrayList<Product> combinedList = new ArrayList<Product>();
+		combinedList.addAll(sephorapostForObject);
+		combinedList.addAll(yesstyleurlpostForObject);
+		combinedList.addAll(eskincareurlpostForObject);
+		
+		
+//		Comparator<Product> priceComparator = new Comparator<Product>() {
+//		    @Override
+//		    public int compare(Product p1, Product p2) {
+//		        return Integer.compare(p1.getPrice(), p2.getPrice());
+//		    }
+//		};
+//		Collections.sort(combinedList, priceComparator);
+		return combinedList;	
 	} 
 	
 	@GetMapping("/getProductById/{productid}") 
 	public ResponseEntity<Product> getProductById(@PathVariable String productid) {
 		String[] parts = productid.split("-");
 		String company = parts[0];
-		String url = "http://sephora-server/" + company + "/getProductByProductid/" + productid + "/"; 
+		String url = "http://" + company + "-server/" + company + "/getProductByProductid/" + productid + "/";
 
 		Product postForObject = restEurekaTemplate.getForObject(url, Product.class); 
 
