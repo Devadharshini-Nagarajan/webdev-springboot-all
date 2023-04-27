@@ -63,6 +63,7 @@ public class MainController {
 //		    }
 //		};
 //		Collections.sort(combinedList, priceComparator);
+		
 		return combinedList;	
 	} 
 	
