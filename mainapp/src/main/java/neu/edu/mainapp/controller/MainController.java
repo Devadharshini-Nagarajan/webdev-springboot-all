@@ -14,6 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController; 
 import org.springframework.web.client.RestTemplate;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import neu.edu.mainapp.dto.ProductDTO;
@@ -24,6 +28,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedHashMap;
+import java.util.List;
 
 @RestController
 @RequestMapping("/main")
@@ -33,7 +38,7 @@ public class MainController {
 	@Qualifier("eurekaTemplate") 
 	private RestTemplate restEurekaTemplate;
 	
-	public ArrayList<Product> getAllProductsFromCompanies() {
+	public List<Product> getAllProductsFromCompanies() throws JsonMappingException, JsonProcessingException {
 		String sephoraurl = "http://sephora-server/sephora/getProducts"; 
 		
 		@SuppressWarnings("unchecked") 
@@ -46,24 +51,28 @@ public class MainController {
 		
 		String eskincareurl = "http://eskincare-server/eskincare/getProducts"; 
 		
+		
 		@SuppressWarnings("unchecked") 
 		ArrayList<Product> eskincareurlpostForObject = restEurekaTemplate.getForObject(eskincareurl, ArrayList.class); 
 		
+		// Convert ArrayList<Product> to JSON string
+		ObjectMapper mapper = new ObjectMapper();
+		String sjson = mapper.writeValueAsString(sephorapostForObject);
+		String yjson = mapper.writeValueAsString(yesstyleurlpostForObject);
+		String ejson = mapper.writeValueAsString(eskincareurlpostForObject);
+
+		// Convert JSON string to List<Product>
+		List<Product> sproductList = mapper.readValue(ejson, new TypeReference<List<Product>>(){});
+		List<Product> yproductList = mapper.readValue(yjson, new TypeReference<List<Product>>(){});
+		List<Product> eproductList = mapper.readValue(sjson, new TypeReference<List<Product>>(){});
+
 		
-		ArrayList<Product> combinedList = new ArrayList<Product>();
-		combinedList.addAll(sephorapostForObject);
-		combinedList.addAll(yesstyleurlpostForObject);
-		combinedList.addAll(eskincareurlpostForObject);
+		List<Product> combinedList = new ArrayList<Product>();
+		combinedList.addAll(sproductList);
+		combinedList.addAll(yproductList);
+		combinedList.addAll(eproductList);
 		
-		
-//		Comparator<Product> priceComparator = new Comparator<Product>() {
-//		    @Override
-//		    public int compare(Product p1, Product p2) {
-//		        return Integer.compare(p1.getPrice(), p2.getPrice());
-//		    }
-//		};
-//		Collections.sort(combinedList, priceComparator);
-		
+		Collections.sort(combinedList, Comparator.comparingDouble(Product::getPrice));
 		return combinedList;	
 	} 
 	
@@ -79,12 +88,12 @@ public class MainController {
 	}
 	
 	@GetMapping("/getProducts") 
-	public ResponseEntity<ArrayList<Product>> getAllProducts() {
+	public ResponseEntity<List<Product>> getAllProducts() throws JsonMappingException, JsonProcessingException {
 //		String url = "http://sephora-server/sephora/getProducts"; 
 //		
 //		@SuppressWarnings("unchecked") 
 //		ArrayList<ProductDTO> postForObject = restEurekaTemplate.getForObject(url, ArrayList.class); 
-		ArrayList<Product> postForObject = getAllProductsFromCompanies();
+		List<Product> postForObject = getAllProductsFromCompanies();
 		return new ResponseEntity<>(postForObject, HttpStatus.OK); 
 	}
 	
