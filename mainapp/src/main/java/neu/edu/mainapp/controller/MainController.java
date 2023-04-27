@@ -4,8 +4,10 @@ package neu.edu.mainapp.controller;
 import org.springframework.beans.factory.annotation.Autowired; 
 
 
-import org.springframework.beans.factory.annotation.Qualifier; 
-import org.springframework.http.HttpStatus; 
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,12 +25,16 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import neu.edu.mainapp.dto.ProductDTO;
 import neu.edu.mainapp.entity.Product;
 
+import java.sql.Blob;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/main")
@@ -102,6 +108,18 @@ public class MainController {
 		ArrayList<ProductDTO> postForObject = restEurekaTemplate.getForObject(url, ArrayList.class); 
 		return new ResponseEntity<>(postForObject, HttpStatus.OK); 
 	}
+	
+	
+//	@GetMapping("/products/{productid}/image")
+//	public ResponseEntity<byte[]> getProductImage(@PathVariable String productid) throws SQLException {
+//		String[] parts = productid.split("-");
+//		String company = parts[0];
+//		String url = "http://" + company + "-server/" + company + "/products/" + productid + "/image";
+//		System.out.println(url);
+//		Product postForObject = restEurekaTemplate.getForObject(url, Product.class); 
+//
+//		return new ResponseEntity<byte[]>(HttpStatus.OK);
+//	}
 	
 	
 }
