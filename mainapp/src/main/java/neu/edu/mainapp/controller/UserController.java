@@ -1,6 +1,7 @@
 package neu.edu.mainapp.controller;
 
 import java.util.ArrayList;
+
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.http.HttpStatus;
 import neu.edu.mainapp.dto.UserDTO;
 import neu.edu.mainapp.entity.User;
 import neu.edu.mainapp.service.UserService;
+import neu.edu.mainapp.resources.SendEmail;
 
 @RestController
 @RequestMapping("/main")
@@ -62,6 +64,8 @@ public class UserController {
 	@RequestMapping(value= "/addUser", method= RequestMethod.POST)
 	public ResponseEntity<User> createUser(@RequestBody UserDTO userDTO) {
 		User users = userService.insertUser(userDTO);
+		SendEmail sendEmail = new SendEmail();
+		sendEmail.sendEmailFunction(userDTO.getEmail(), "Registration Successfull", "Thanks for registering with us. Your one stop solution to all your skincare doubts. Happy shopping!!! Login to explore!");
 		return new ResponseEntity<>(users, HttpStatus.OK);
 	}
 	

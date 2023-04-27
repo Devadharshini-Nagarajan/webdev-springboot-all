@@ -12,7 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping; 
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController; 
 import org.springframework.web.client.RestTemplate;
 
@@ -24,6 +25,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import neu.edu.mainapp.dto.ProductDTO;
 import neu.edu.mainapp.entity.Product;
+import neu.edu.mainapp.resources.SendEmail;
 
 import java.sql.Blob;
 import java.sql.SQLException;
@@ -120,6 +122,15 @@ public class MainController {
 //
 //		return new ResponseEntity<byte[]>(HttpStatus.OK);
 //	}
+	
+	
+	@RequestMapping(value= "/sendmail/{email}", method= RequestMethod.GET)
+	public ResponseEntity<Boolean> sendEmailToUser(@PathVariable String email){
+		SendEmail sendEmail = new SendEmail();
+		String content =  "Happy to see that you are interested in our products. We will notify you once it is available for purchase. Please feel free to explore other products. Happy Shopping!!!";
+		sendEmail.sendEmailFunction(email,"Subscribed for product availability notification", content);
+		return new ResponseEntity<>(true, HttpStatus.OK);
+	}
 	
 	
 }
