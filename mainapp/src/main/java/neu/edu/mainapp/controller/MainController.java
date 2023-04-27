@@ -89,10 +89,6 @@ public class MainController {
 	
 	@GetMapping("/getProducts") 
 	public ResponseEntity<List<Product>> getAllProducts() throws JsonMappingException, JsonProcessingException {
-//		String url = "http://sephora-server/sephora/getProducts"; 
-//		
-//		@SuppressWarnings("unchecked") 
-//		ArrayList<ProductDTO> postForObject = restEurekaTemplate.getForObject(url, ArrayList.class); 
 		List<Product> postForObject = getAllProductsFromCompanies();
 		return new ResponseEntity<>(postForObject, HttpStatus.OK); 
 	}

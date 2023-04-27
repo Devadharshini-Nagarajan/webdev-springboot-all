@@ -2,6 +2,7 @@ package neu.edu.mainapp.service;
 
 import java.util.ArrayList;
 
+
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.UUID;
@@ -13,10 +14,12 @@ import neu.edu.mainapp.dto.UserDTO;
 import neu.edu.mainapp.entity.User;
 import neu.edu.mainapp.repository.UserRepository;
 
+
 @Service
 public class UserService {
 	@Autowired
 	private UserRepository userRepository;
+
 	static String companyName = "sephora";
 	
 	public ArrayList<User> getAllUsers() {
@@ -71,7 +74,7 @@ public class UserService {
 		user.setZipcode(userDTO.getZipcode());
 		user.setCreatedat(userDTO.getCreatedat());
 		user.setCountry(userDTO.getCountry());
-		
+	
 		User savedUser = null;
 		
 		try {
