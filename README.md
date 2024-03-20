@@ -3,6 +3,10 @@
 and provides a user-friendly interface using ReactJS and Spring MVC.
 Utilized Spring Boot,Discovery Server, Spring REST, Spring JPA, and a SQL, MongoDB database for efficient data management. 
 
+<img width="1440" alt="image" src="https://github.com/Devadharshini-Nagarajan/webdev-springboot-all/assets/113491692/e791d7d6-de65-4332-9a73-970069e75645">
+
+### Architecture
+
 <img width="514" alt="image" src="https://github.com/Devadharshini-Nagarajan/webdev-springboot-all/assets/113491692/46e75814-887a-4e86-9e5e-2271f72df3dd">
 
 <img width="491" alt="image" src="https://github.com/Devadharshini-Nagarajan/webdev-springboot-all/assets/113491692/999bd600-2f4e-4df1-939e-47e5cd8c6f9c">
